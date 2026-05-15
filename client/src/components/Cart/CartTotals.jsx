@@ -31,63 +31,7 @@ const CartTotals = () => {
               className="w-full flex items-center justify-center rounded-full!"
               icon={<PlusCircleOutlined />}
             />
-            <span>2</span>
-            <Button
-              type="primary"
-              size="small"
-              className="w-full flex items-center justify-center rounded-full!"
-              icon={<MinusCircleOutlined />}
-            />
-          </div>
-        </li>
-        <li className="cart-item flex justify-between">
-          <div className="flex items-center">
-            <img
-              src="https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/8e46/live/82d73790-5271-11f0-a2ff-17a82c2e8bc4.jpg.webp"
-              alt=""
-              className="w-16 h-16 object-cover"
-            />
-            <div className="flex flex-col ml-2">
-              <b>Elma</b>
-              <span>12₺ x 2</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-x-1">
-            <Button
-              type="primary"
-              size="small"
-              className="w-full flex items-center justify-center rounded-full!"
-              icon={<PlusCircleOutlined />}
-            />
-            <span>2</span>
-            <Button
-              type="primary"
-              size="small"
-              className="w-full flex items-center justify-center rounded-full!"
-              icon={<MinusCircleOutlined />}
-            />
-          </div>
-        </li>
-        <li className="cart-item flex justify-between">
-          <div className="flex items-center">
-            <img
-              src="https://ichef.bbci.co.uk/ace/ws/640/cpsprodpb/8e46/live/82d73790-5271-11f0-a2ff-17a82c2e8bc4.jpg.webp"
-              alt=""
-              className="w-16 h-16 object-cover"
-            />
-            <div className="flex flex-col ml-2">
-              <b>Elma</b>
-              <span>12₺ x 2</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-x-1">
-            <Button
-              type="primary"
-              size="small"
-              className="w-full flex items-center justify-center rounded-full!"
-              icon={<PlusCircleOutlined />}
-            />
-            <span>2</span>
+            <span className="font-bold">2</span>
             <Button
               type="primary"
               size="small"
