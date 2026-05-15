@@ -16,6 +16,19 @@ body {
   justify-content: center;
 }
 
+.menu-link {
+  color: inherit;
+}
+
+.menu-link:focus {
+  color: inherit;
+}
+
+.menu-link:hover,
+.menu-link:focus-visible {
+  color: #40a9ff;
+}
+
 @media (min-width: 768px) {
   body {
     overflow: hidden;
