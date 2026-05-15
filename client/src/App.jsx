@@ -1,5 +1,6 @@
 import Categories from "./components/Categories/Categories";
 import Header from "./components/Header/Header";
+import Products from "./components/Products/Products";
 
 const App = () => {
   return (
@@ -10,7 +11,7 @@ const App = () => {
           <Categories />
         </div>
         <div className="products flex-8">
-          <div>Products</div>
+          <Products />
         </div>
         <div className="">
           <div>Cart</div>
