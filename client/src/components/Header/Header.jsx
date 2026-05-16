@@ -47,7 +47,7 @@ const Header = () => {
             </Badge>
           </div>
           <Link
-            to={"/"}
+            to={"/bills"}
             className="menu-link flex flex-col hover:text-[#40a9ff] transition-all"
           >
             <CopyOutlined className="md:text-2xl text-xl" />
