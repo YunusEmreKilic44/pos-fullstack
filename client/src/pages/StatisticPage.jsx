@@ -4,6 +4,8 @@ import { Area, Pie } from "@ant-design/charts";
 
 const StatisticPage = () => {
   const config = {
+    autoFit: true,
+    height: 288,
     data: {
       type: "fetch",
       value: "https://assets.antv.antgroup.com/g2/aapl.json",
@@ -13,6 +15,8 @@ const StatisticPage = () => {
   };
 
   const config2 = {
+    autoFit: true,
+    height: 288,
     data: [
       { type: "分类一", value: 27 },
       { type: "分类二", value: 25 },
@@ -55,7 +59,7 @@ const StatisticPage = () => {
   return (
     <>
       <Header />
-      <div className="px-6">
+      <div className="px-6 pb-20 md:pb-0">
         <h1 className="text-4xl font-bold text-center mb-4">İstatistiklerim</h1>
         <div className="statistic-section">
           <h2 className="text-lg">
@@ -84,11 +88,11 @@ const StatisticPage = () => {
               img="images/product.png"
             />
           </div>
-          <div className="flex justify-between">
-            <div>
+          <div className="grid w-full min-w-0 grid-cols-1 gap-10 lg:grid-cols-2">
+            <div className="h-72 w-full min-w-0">
               <Area {...config} />
             </div>
-            <div>
+            <div className="h-72 w-full min-w-0">
               <Pie {...config2} />
             </div>
           </div>
