@@ -48,7 +48,7 @@ const CartPage = () => {
           bordered
           pagination={false}
         />
-        ;
+
         <div className="cart-total flex justify-end mt-4">
           <Card className="w-72">
             <div className="flex justify-between">
