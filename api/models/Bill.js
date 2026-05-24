@@ -10,7 +10,7 @@ const BillSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    paymentMonde: {
+    paymentMode: {
       type: String,
       required: true,
     },

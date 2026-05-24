@@ -8,6 +8,7 @@ const cors = require("cors");
 //routes
 const categoryRoute = require("./routes/categoryRoutes.js");
 const productRoute = require("./routes/productRoutes.js");
+const billRoute = require("./routes/billRoutes.js");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(cors());
 
 app.use("/api/categories", categoryRoute);
 app.use("/api/products", productRoute);
+app.use("/api/bills", billRoute);
 
 app.listen(port, () => {
   connect();
