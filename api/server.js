@@ -7,6 +7,7 @@ const cors = require("cors");
 
 //routes
 const categoryRoute = require("./routes/categoryRoutes.js");
+const productRoute = require("./routes/productRoutes.js");
 
 const app = express();
 
@@ -28,6 +29,7 @@ const connect = async () => {
 app.use(cors());
 
 app.use("/api/categories", categoryRoute);
+app.use("/api/products", productRoute);
 
 app.listen(port, () => {
   connect();
