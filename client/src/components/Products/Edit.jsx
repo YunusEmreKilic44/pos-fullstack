@@ -1,13 +1,15 @@
-import { Button, Form, Input, message, Modal, Table } from "antd";
+import { Button, Form, Input, message, Modal, Select, Table } from "antd";
 import { useEffect, useState } from "react";
 
-const Edit = ({
-  isEditModalOpen,
-  setIsEditModalOpen,
-  categories,
-  setCategories,
-}) => {
+const Edit = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const [editingItem, setEditingItem] = useState({});
+
+  const [form] = Form.useForm();
+
   useEffect(() => {
     const getProducts = async () => {
       try {
@@ -22,15 +24,36 @@ const Edit = ({
     getProducts();
   }, []);
 
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/categories/get-all");
+        const data = await res.json();
+        data &&
+          setCategories(data.map((item) => ({ ...item, value: item.title })));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    form.setFieldsValue(editingItem);
+  }, [editingItem, form]);
+
   const onFinish = (values) => {
     try {
-      fetch("http://localhost:5000/api/categories/update-category", {
+      fetch("http://localhost:5000/api/products/update-product", {
         method: "PUT",
-        body: JSON.stringify({ ...values }),
+        body: JSON.stringify({ ...values, productId: editingItem._id }),
         headers: { "Content-type": "application/json; charset=UTF-8" },
       });
-      message.success("Kategori başarıyla güncellendi.");
-      setCategories(categories.map((item) => item));
+      message.success("Ürün başarıyla güncellendi.");
+      setProducts(
+        products.map((item) => (item._id === editingItem._id ? values : item)),
+      );
     } catch (error) {
       message.error("Bir şeyler yanlış gitti");
       console.log(error);
@@ -88,12 +111,17 @@ const Edit = ({
       render: (text, record) => {
         return (
           <div>
-            <Button type="link" className="pl-0">
+            <Button
+              type="link"
+              className="pl-0"
+              onClick={() => {
+                setIsEditModalOpen(true);
+                setEditingItem(record);
+              }}
+            >
               Düzenle
             </Button>
-            <Button htmlType="submit" type="link" className="text-gray-500!">
-              Kaydet
-            </Button>
+
             <Button
               type="link"
               danger
@@ -108,7 +136,7 @@ const Edit = ({
   ];
 
   return (
-    <Form onFinish={onFinish}>
+    <>
       <Table
         bordered
         dataSource={products}
@@ -119,7 +147,76 @@ const Edit = ({
           y: 600,
         }}
       />
-    </Form>
+      <Modal
+        title="Yeni Ürün Ekle"
+        open={isEditModalOpen}
+        closable={{ "aria-label": "Custom Close Button" }}
+        onCancel={() => setIsEditModalOpen(false)}
+        footer={false}
+      >
+        <Form
+          layout="vertical"
+          onFinish={onFinish}
+          form={form}
+          initialValues={editingItem}
+        >
+          <Form.Item
+            name={"title"}
+            label="Ürün Ekle"
+            rules={[
+              { required: true, message: "Ürün adı alanı boş bırakılamaz!" },
+            ]}
+          >
+            <Input placeholder="Ürün adı giriniz." />
+          </Form.Item>
+          <Form.Item
+            name={"img"}
+            label="Ürün Görseli"
+            rules={[
+              {
+                required: true,
+                message: "Ürün görseli alanı boş bırakılamaz!",
+              },
+            ]}
+          >
+            <Input placeholder="Ürün görseli giriniz." />
+          </Form.Item>
+          <Form.Item
+            name={"price"}
+            label="Ürün Fiyatı"
+            rules={[
+              { required: true, message: "Ürün fiyatı alanı boş bırakılamaz!" },
+            ]}
+          >
+            <Input placeholder="Ürün fiyatı giriniz." />
+          </Form.Item>
+          <Form.Item
+            name={"category"}
+            label="Ürün Kategorisi"
+            rules={[
+              { required: true, message: "Ürün fiyatı alanı boş bırakılamaz!" },
+            ]}
+          >
+            <Select
+              showSearch={{
+                optionFilterProp: "label",
+                filterSort: (optionA, optionB) =>
+                  (optionA?.titel ?? "")
+                    .toLowerCase()
+                    .localeCompare((optionB?.title ?? "").toLowerCase()),
+              }}
+              placeholder="Search to Select"
+              options={categories}
+            />
+          </Form.Item>
+          <Form.Item className="flex justify-end mb-0">
+            <Button type="primary" htmlType="submit">
+              Güncelle
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </>
   );
 };
 
