@@ -10,6 +10,7 @@ const categoryRoute = require("./routes/categoryRoutes.js");
 const productRoute = require("./routes/productRoutes.js");
 const billRoute = require("./routes/billRoutes.js");
 const authRoute = require("./routes/authRoutes.js");
+const userRoute = require("./routes/userRoutes.js");
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use("/api/categories", categoryRoute);
 app.use("/api/products", productRoute);
 app.use("/api/bills", billRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/users", userRoute);
 
 app.listen(port, () => {
   connect();
