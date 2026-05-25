@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import ProductItem from "./ProductItem";
+import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import Add from "./Add";
 
-const Products = () => {
+const Products = ({ categories }) => {
   const [products, setProducts] = useState([]);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -20,23 +24,26 @@ const Products = () => {
   return (
     <div className="product-wrapper grid gap-4 grid-cols-[repeat(auto-fill,minmax(150px,1fr))]">
       {products.map((item) => (
-        <div
-          key={item._id}
-          className="product-item border hover:shadow-lg cursor-pointer transition-all select-none"
-        >
-          <div className="product-image">
-            <img
-              src={item.img}
-              alt={item.title}
-              className="h-28 object-cover w-full border-b"
-            />
-          </div>
-          <div className="product-info flex flex-col p-3">
-            <span className="font-bold">{item.title}</span>
-            <span>{item.price}₺</span>
-          </div>
-        </div>
+        <ProductItem item={item} key={item._id} />
       ))}
+
+      <div
+        onClick={() => setIsAddModalOpen(true)}
+        className="product-item border hover:shadow-lg cursor-pointer transition-all select-none bg-purple-800 flex justify-center items-center hover:opacity-90"
+      >
+        <PlusOutlined className="text-white! md:text-2xl" />
+      </div>
+
+      <div className="product-item border hover:shadow-lg cursor-pointer transition-all select-none bg-orange-800 flex justify-center items-center hover:opacity-90">
+        <EditOutlined className="text-white! md:text-2xl" />
+      </div>
+      <Add
+        isAddModalOpen={isAddModalOpen}
+        setIsAddModalOpen={setIsAddModalOpen}
+        categories={categories}
+        products={products}
+        setProducts={setProducts}
+      />
     </div>
   );
 };
