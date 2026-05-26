@@ -4,6 +4,7 @@ dotenv.config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const logger = require("morgan");
 
 //routes
 const categoryRoute = require("./routes/categoryRoutes.js");
@@ -30,6 +31,7 @@ const connect = async () => {
 
 // middlewares
 app.use(cors());
+app.use(logger("dev"));
 
 app.use("/api/categories", categoryRoute);
 app.use("/api/products", productRoute);
