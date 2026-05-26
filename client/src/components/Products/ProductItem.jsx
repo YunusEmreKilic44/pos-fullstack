@@ -6,10 +6,8 @@ const ProductItem = ({ item }) => {
   const cart = useSelector((state) => state.cart);
 
   const handleClick = () => {
-    dispatch(addProduct(item));
+    dispatch(addProduct({ ...item, quantity: 1 }));
   };
-
-  console.log(cart.cartItems);
 
   return (
     <div
