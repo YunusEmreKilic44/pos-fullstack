@@ -1,4 +1,4 @@
-import { deleteCart } from "../../redux/cartSlice";
+import { deleteCart, increase, decrease } from "../../redux/cartSlice";
 
 import { Button } from "antd";
 import {
@@ -18,39 +18,54 @@ const CartTotals = () => {
         Sepetteki Ürünler
       </h2>
       <ul className="cart-items px-2 flex flex-col gap-y-3 py-2 overflow-y-auto">
-        {cart.cartItems.map((item) => (
-          <li key={item._id} className="cart-item flex justify-between">
-            <div className="flex items-center">
-              <img
-                onClick={() => dispatch(deleteCart(item))}
-                src={item.img}
-                alt=""
-                className="w-16 h-16 object-cover cursor-pointer"
-              />
-              <div className="flex flex-col ml-2">
-                <b>{item.title}</b>
-                <span>
-                  {item.price}₺ x {item.quantity}
-                </span>
-              </div>
-            </div>
-            <div className="flex items-center gap-x-1">
-              <Button
-                type="primary"
-                size="small"
-                className="w-full flex items-center justify-center rounded-full!"
-                icon={<PlusCircleOutlined />}
-              />
-              <span className="font-bold">{item.quantity}</span>
-              <Button
-                type="primary"
-                size="small"
-                className="w-full flex items-center justify-center rounded-full!"
-                icon={<MinusCircleOutlined />}
-              />
-            </div>
-          </li>
-        ))}
+        {cart.cartItems.length > 0
+          ? cart.cartItems.map((item) => (
+              <li key={item._id} className="cart-item flex justify-between">
+                <div className="flex items-center">
+                  <img
+                    onClick={() => dispatch(deleteCart(item))}
+                    src={item.img}
+                    alt=""
+                    className="w-16 h-16 object-cover cursor-pointer"
+                  />
+                  <div className="flex flex-col ml-2">
+                    <b>{item.title}</b>
+                    <span>
+                      {item.price}₺ x {item.quantity}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <Button
+                    type="primary"
+                    size="small"
+                    className="w-full flex items-center justify-center rounded-full!"
+                    icon={<PlusCircleOutlined />}
+                    onClick={() => dispatch(increase(item))}
+                  />
+                  <span className="font-bold inline-block text-center w-6">
+                    {item.quantity}
+                  </span>
+                  <Button
+                    type="primary"
+                    size="small"
+                    className="w-full flex items-center justify-center rounded-full!"
+                    icon={<MinusCircleOutlined />}
+                    onClick={() => {
+                      if (item.quantity === 1) {
+                        if (confirm("Ürün silinsin mi?")) {
+                          return dispatch(decrease(item));
+                        }
+                      }
+                      if (item.quantity > 1) {
+                        return dispatch(decrease(item));
+                      }
+                    }}
+                  />
+                </div>
+              </li>
+            ))
+          : "Sepette hiç ürün yok..."}
       </ul>
       <div className="cart-totals mt-auto">
         <div className="border-t border-b">
