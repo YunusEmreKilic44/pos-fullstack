@@ -50,6 +50,10 @@ const CustomersPage = () => {
           columns={columns}
           bordered
           pagination={false}
+          scroll={{
+            x: 1000,
+            y: 300,
+          }}
         />
       </div>
     </>
