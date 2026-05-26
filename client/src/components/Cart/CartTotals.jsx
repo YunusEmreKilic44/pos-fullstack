@@ -7,10 +7,12 @@ import {
   PlusCircleOutlined,
 } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CartTotals = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="cart h-[calc(100vh-90px)] flex flex-col">
@@ -98,6 +100,7 @@ const CartTotals = () => {
             size="large"
             className="w-full"
             disabled={cart.cartItems.length === 0}
+            onClick={() => navigate("/cart")}
           >
             Sipariş Oluştur
           </Button>
