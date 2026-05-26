@@ -7,6 +7,7 @@ const BillsPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [billItems, setBillItems] = useState([]);
+  const [customer, setCustomer] = useState();
 
   useEffect(() => {
     const getBills = async () => {
@@ -58,12 +59,15 @@ const BillsPage = () => {
       title: "Actions",
       dataIndex: "action",
       key: "action",
-      render: (text) => {
+      render: (text, record) => {
         return (
           <Button
             type="link"
             className="pl-0!"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              setIsModalOpen(true);
+              setCustomer(record);
+            }}
           >
             Yazdır
           </Button>
@@ -84,7 +88,11 @@ const BillsPage = () => {
           pagination={false}
         />
       </div>
-      <PrintBill isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+      <PrintBill
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        customer={customer}
+      />
     </>
   );
 };
