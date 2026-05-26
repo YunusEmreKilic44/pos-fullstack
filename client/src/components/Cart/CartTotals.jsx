@@ -1,6 +1,6 @@
-import { deleteCart, increase, decrease } from "../../redux/cartSlice";
+import { deleteCart, increase, decrease, reset } from "../../redux/cartSlice";
 
-import { Button } from "antd";
+import { Button, message } from "antd";
 import {
   ClearOutlined,
   MinusCircleOutlined,
@@ -23,7 +23,10 @@ const CartTotals = () => {
               <li key={item._id} className="cart-item flex justify-between">
                 <div className="flex items-center">
                   <img
-                    onClick={() => dispatch(deleteCart(item))}
+                    onClick={() => {
+                      dispatch(deleteCart(item));
+                      message.success("Ürün sepetten silindi");
+                    }}
                     src={item.img}
                     alt=""
                     className="w-16 h-16 object-cover cursor-pointer"
@@ -54,7 +57,8 @@ const CartTotals = () => {
                     onClick={() => {
                       if (item.quantity === 1) {
                         if (confirm("Ürün silinsin mi?")) {
-                          return dispatch(decrease(item));
+                          dispatch(decrease(item));
+                          message.success("Ürün sepetten silindi");
                         }
                       }
                       if (item.quantity > 1) {
@@ -89,7 +93,12 @@ const CartTotals = () => {
           </div>
         </div>
         <div className="py-4 px-2">
-          <Button type="primary" size="large" className="w-full">
+          <Button
+            type="primary"
+            size="large"
+            className="w-full"
+            disabled={cart.cartItems.length === 0}
+          >
             Sipariş Oluştur
           </Button>
           <Button
@@ -98,6 +107,13 @@ const CartTotals = () => {
             className="w-full mt-2 flex items-center justify-center"
             danger={true}
             icon={<ClearOutlined />}
+            onClick={() => {
+              if (confirm("Emin misiniz?")) {
+                dispatch(reset());
+                message.success("Sepet başarıyla temizlendi.");
+              }
+            }}
+            disabled={cart.cartItems.length === 0}
           >
             Temizle
           </Button>
