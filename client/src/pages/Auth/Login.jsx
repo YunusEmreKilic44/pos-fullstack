@@ -1,6 +1,6 @@
 import { Button, Carousel, Checkbox, Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import AuthCarousel from "../../components/auth/AuthCarousel";
+import AuthCarousel from "../../components/Auth/AuthCarousel";
 import { useState } from "react";
 
 const Login = () => {
