@@ -6,6 +6,7 @@ import StatisticCard from "../components/Statistics/StatisticCard";
 const StatisticPage = () => {
   const [bills, setBills] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = JSON.parse(localStorage.getItem("popUser"));
 
   useEffect(() => {
     const getBills = async () => {
@@ -125,13 +126,14 @@ const StatisticPage = () => {
     <>
       <Header />
       <div className="px-6 pb-20 md:pb-0">
-        <h1 className="text-4xl font-bold text-center mb-4">
-          İstatistiklerim
-        </h1>
+        <h1 className="text-4xl font-bold text-center mb-4">İstatistiklerim</h1>
         <div className="statistic-section">
           <h2 className="text-lg">
             Hoş geldin{" "}
-            <span className="text-green-700 font-bold text-xl">admin</span>.
+            <span className="text-green-700 font-bold text-xl">
+              {user.username}
+            </span>
+            .
           </h2>
           <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 my-10 md:gap-10 gap-4">
             <StatisticCard
@@ -142,9 +144,7 @@ const StatisticPage = () => {
             <StatisticCard
               title={"Toplam Kazanç"}
               amount={
-                loading
-                  ? "..."
-                  : `${statistics.totalIncome.toFixed(2)} ₺`
+                loading ? "..." : `${statistics.totalIncome.toFixed(2)} ₺`
               }
               img="images/money.png"
             />
