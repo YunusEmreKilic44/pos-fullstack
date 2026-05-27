@@ -11,7 +11,7 @@ const Add = ({
 
   const onFinish = (values) => {
     try {
-      fetch("http://localhost:5000/api/products/add-product", {
+      fetch(`${import.meta.env.VITE_SERVER_URL}/api/products/add-product`, {
         method: "POST",
         body: JSON.stringify(values),
         headers: { "Content-type": "application/json; charset=UTF-8" },

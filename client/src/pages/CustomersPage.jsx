@@ -13,7 +13,7 @@ const CustomersPage = () => {
   useEffect(() => {
     const getBills = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/bills/get-all");
+        const res = await fetch(`${import.meta.env.VITE_SERVER_URL}/api/bills/get-all`);
         const data = await res.json();
         setBillItems(data);
       } catch (error) {
