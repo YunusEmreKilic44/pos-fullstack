@@ -9,6 +9,7 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     const getCategories = async () => {
@@ -41,7 +42,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <Header />
+      <Header setSearch={setSearch} />
       <div className="home px-6 flex flex-col md:flex-row justify-between gap-10 md:pb-0 pb-24 h-screen">
         <div className="categories overflow-auto max-h-[calc(100vh-112px)] md:pb-10">
           <Categories
@@ -57,6 +58,7 @@ const HomePage = () => {
             filtered={filtered}
             products={products}
             setProducts={setProducts}
+            search={search}
           />
         </div>
         <div className="cart-wrapper min-w-75 md:-mr-6 md:-mt-6 border ">
